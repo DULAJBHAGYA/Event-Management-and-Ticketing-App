@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Navbar from './Navbar';
+import AIChatbot from './AIChatbot';
 
 export default function LandingPage() {
   const [destination, setDestination] = useState('');
@@ -186,6 +187,9 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
+
+      {/* AI Chatbot */}
+      <AIChatbot />
 
     </div>
   );
