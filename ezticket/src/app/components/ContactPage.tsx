@@ -55,7 +55,7 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-2xl xl:text-3xl text-white/90 max-w-3xl mx-auto leading-relaxed" style={{fontFamily: 'var(--font-geist-sans)', textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}>
-              Get in touch with EZTicket team. We're here to help with your events and ticketing needs across Sri Lanka.
+              Get in touch with EZTicket team. We&apos;re here to help with your events and ticketing needs across Sri Lanka.
             </p>
           </div>
 
