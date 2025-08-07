@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState('');
@@ -109,7 +108,7 @@ export default function RegisterPage() {
                 Join the EZTicket Community
               </h2>
               <p className="text-2xl xl:text-3xl text-white/90 leading-relaxed mb-4" style={{fontFamily: 'var(--font-geist-sans)', textShadow: '0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)'}}>
-                Start your exciting journey with Sri Lanka's premier event ticketing platform.
+                Start your exciting journey with Sri Lanka&apos;s premier event ticketing platform.
               </p>
               <p className="text-xl xl:text-2xl text-white/80 leading-relaxed" style={{fontFamily: 'var(--font-geist-sans)', textShadow: '0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)'}}>
                 Discover concerts, festivals, cultural shows, and sports events happening near you.
@@ -120,7 +119,7 @@ export default function RegisterPage() {
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-8 border border-white/20">
             <div className="mb-6">
               <blockquote className="text-xl font-medium leading-relaxed">
-                "{testimonials[currentTestimonial].comment}"
+                &ldquo;{testimonials[currentTestimonial].comment}&rdquo;
               </blockquote>
             </div>
             

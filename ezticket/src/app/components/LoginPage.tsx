@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -117,7 +116,7 @@ export default function LoginPage() {
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-8 border border-white/20">
             <div className="mb-6">
               <blockquote className="text-xl font-medium leading-relaxed">
-                "{testimonials[currentTestimonial].comment}"
+                &ldquo;{testimonials[currentTestimonial].comment}&rdquo;
               </blockquote>
             </div>
             
@@ -310,7 +309,7 @@ export default function LoginPage() {
           {/* Sign Up Link */}
           <div className="mt-4 text-center">
             <p className="text-base xl:text-lg text-gray-600" style={{fontFamily: 'var(--font-geist-sans)'}}>
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link href="/register" className="text-orange-600 hover:text-orange-500 font-bold" style={{fontFamily: 'var(--font-geist-sans)'}}>
                 Sign up
               </Link>

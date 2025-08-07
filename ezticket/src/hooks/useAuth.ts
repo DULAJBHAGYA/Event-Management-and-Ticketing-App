@@ -20,7 +20,7 @@ export function useAuth() {
       //   const userData = await response.json();
       //   setUser(userData);
       // }
-    } catch (err) {
+    } catch {
       setError('Failed to check authentication status');
     } finally {
       setIsLoading(false);
@@ -49,7 +49,7 @@ export function useAuth() {
       // }
       
       return { success: false, error: 'Invalid credentials' };
-    } catch (err) {
+    } catch {
       const errorMessage = 'Login failed';
       setError(errorMessage);
       return { success: false, error: errorMessage };
@@ -64,7 +64,7 @@ export function useAuth() {
       // TODO: Implement actual logout logic
       // await fetch('/api/auth/logout', { method: 'POST' });
       setUser(null);
-    } catch (err) {
+    } catch {
       setError('Logout failed');
     } finally {
       setIsLoading(false);
