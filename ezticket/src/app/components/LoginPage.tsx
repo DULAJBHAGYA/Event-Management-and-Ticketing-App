@@ -10,6 +10,39 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  const testimonials = [
+    {
+      name: "Samantha Fernando",
+      role: "Event Enthusiast",
+      location: "Colombo, Sri Lanka",
+      rating: 5,
+      comment: "EZTicket helped us discover and book amazing events across Sri Lanka with seamless experience and brilliant customer service."
+    },
+    {
+      name: "Arjun Silva",
+      role: "Concert Lover",
+      location: "Galle, Sri Lanka",
+      rating: 5,
+      comment: "Best ticketing platform in Sri Lanka! Found amazing concerts and festivals. The booking process is so smooth and secure."
+    },
+    {
+      name: "Priya Wijesinghe",
+      role: "Family Event Organizer",
+      location: "Kandy, Sri Lanka",
+      rating: 4,
+      comment: "Perfect for family events and cultural shows. Love how easy it is to find events happening around Sri Lanka."
+    }
+  ];
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -29,21 +62,11 @@ export default function LoginPage() {
           <div className="absolute inset-0 bg-black/20"></div>
         </div>
         
-        {/* Right Side - Form */}
-        <div className="w-full lg:w-2/5 bg-white flex items-center justify-center p-8">
-          <div className="w-full max-w-md">
-            <div className="text-center mb-8">
-              <Image
-                src="/assets/images/Logo.png"
-                alt="EZTicket Logo"
-                width={150}
-                height={50}
-                className="h-12 w-auto mx-auto mb-4"
-                priority
-              />
-            </div>
-          </div>
-        </div>
+                       {/* Right Side - Form */}
+               <div className="w-full lg:w-2/5 bg-white flex items-center justify-center p-8">
+                 <div className="w-full max-w-md">
+                 </div>
+               </div>
       </div>
     );
   }
@@ -51,41 +74,108 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Abstract Background with Testimonial */}
-      <div className="hidden lg:flex w-3/5 relative overflow-hidden bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600">
+      <div className="hidden lg:flex w-3/5 relative overflow-hidden bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600 lg:rounded-tr-3xl lg:rounded-br-3xl">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+          style={{ backgroundImage: 'url(/assets/images/loginbg.jpg)' }}
+        ></div>
+        
+                      {/* Back to Home Link - Upper Left Corner */}
+              <div className="absolute top-6 left-6 z-20">
+                <Link
+                  href="/"
+                  className="inline-flex items-center space-x-2 px-4 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 hover:text-white transition-all duration-300 border border-white/30"
+                  title="Back to Home"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  <span className="text-sm font-medium" style={{fontFamily: 'var(--font-geist-sans)'}}>Back to Home</span>
+                </Link>
+              </div>
+        
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/20"></div>
         
-        {/* Content */}
-        <div className="relative z-10 flex flex-col justify-end p-12 text-white">
-          {/* Testimonial Card */}
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-8 border border-white/20">
+                  {/* Content */}
+          <div className="relative z-10 flex flex-col justify-end p-12 text-white">
+            {/* Welcome Text */}
+            <div className="mb-8">
+              <h2 className="text-5xl xl:text-6xl font-bold mb-6" style={{fontFamily: 'var(--font-geist-sans)'}}>
+                Welcome Back to EZTicket
+              </h2>
+              <p className="text-2xl xl:text-3xl text-white/90 leading-relaxed mb-4" style={{fontFamily: 'var(--font-geist-sans)', textShadow: '0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)'}}>
+                Continue your journey to discover amazing events across beautiful Sri Lanka.
+              </p>
+              <p className="text-xl xl:text-2xl text-white/80 leading-relaxed" style={{fontFamily: 'var(--font-geist-sans)', textShadow: '0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)'}}>
+                Join thousands of event enthusiasts who trust EZTicket for seamless booking experiences.
+              </p>
+            </div>
+            
+            {/* Testimonial Card */}
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-8 border border-white/20">
             <div className="mb-6">
               <blockquote className="text-xl font-medium leading-relaxed">
-                "EZTicket helped us discover and book amazing events across Sri Lanka with seamless experience and brilliant customer service."
+                "{testimonials[currentTestimonial].comment}"
               </blockquote>
             </div>
             
             <div className="flex items-center justify-between">
               <div>
-                <div className="font-bold text-lg">Samantha Fernando</div>
-                <div className="text-white/80">Event Enthusiast</div>
-                <div className="text-white/70 text-sm">Colombo, Sri Lanka</div>
+                <div className="font-bold text-lg">{testimonials[currentTestimonial].name}</div>
+                <div className="text-white/80">{testimonials[currentTestimonial].role}</div>
+                <div className="text-white/70 text-sm">{testimonials[currentTestimonial].location}</div>
               </div>
               
-              <div className="flex text-yellow-400">
-                ⭐⭐⭐⭐⭐
+              <div className="flex space-x-1">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <svg
+                    key={star}
+                    className={`w-5 h-5 ${star <= testimonials[currentTestimonial].rating ? 'text-yellow-400' : 'text-gray-300'} fill-current`}
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+                <span className="ml-2 text-white/80 text-sm font-medium">{testimonials[currentTestimonial].rating}.0</span>
               </div>
             </div>
           </div>
           
           {/* Navigation Arrows */}
-          <div className="flex space-x-4">
-            <button className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors">
-              ←
-            </button>
-            <button className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors">
-              →
-            </button>
+          <div className="flex justify-between items-center">
+            <div className="flex space-x-4">
+              <button 
+                onClick={prevTestimonial}
+                className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button 
+                onClick={nextTestimonial}
+                className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center hover:bg-white/10 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+            
+            {/* Dots Indicator */}
+            <div className="flex space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    index === currentTestimonial ? 'bg-white' : 'bg-white/30'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -93,28 +183,8 @@ export default function LoginPage() {
       {/* Right Side - Login Form */}
       <div className="w-full lg:w-2/5 bg-white flex items-center justify-center p-8">
         <div className="w-full max-w-md">
-          {/* Back to Home Link */}
-          <div className="mb-4">
-            <Link 
-              href="/"
-              className="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors text-base xl:text-lg font-semibold"
-              style={{fontFamily: 'var(--font-geist-sans)'}}
-            >
-              ← Back to Home
-            </Link>
-          </div>
 
-          {/* Logo */}
-          <div className="text-center mb-8">
-            <Image
-              src="/assets/images/Logo.png"
-              alt="EZTicket Logo"
-              width={150}
-              height={50}
-              className="h-12 w-auto mx-auto mb-4"
-              priority
-            />
-          </div>
+          
 
           {/* Header */}
           <div className="mb-8">
@@ -162,7 +232,16 @@ export default function LoginPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-base"
                 >
-                  👁️
+                  {showPassword ? (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                    </svg>
+                  )}
                 </button>
               </div>
             </div>
@@ -175,7 +254,8 @@ export default function LoginPage() {
                   id="remember-me"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="h-5 w-5 text-orange-600 focus:ring-orange-500 border-gray-300 rounded"
+                  className="h-5 w-5 text-orange-500 focus:ring-orange-500 border-gray-300 rounded accent-orange-500"
+                  style={{accentColor: '#f97316'}}
                 />
                 <label htmlFor="remember-me" className="ml-2 block text-sm xl:text-base text-gray-700 font-medium" style={{fontFamily: 'var(--font-geist-sans)'}}>
                   Remember me

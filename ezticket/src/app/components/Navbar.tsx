@@ -18,14 +18,16 @@ export default function Navbar() {
                  <div className="max-w-7xl mx-auto flex items-center justify-between">
            {/* Logo */}
            <div className="flex items-center space-x-3">
-                           <Image
-                src="/assets/images/Logo.png"
-                alt="EZTicket Logo"
-                width={240}
-                height={80}
-                className="h-16 w-auto"
-                priority
-              />
+             <Link href="/" className="cursor-pointer">
+               <Image
+                 src="/assets/images/Logo.png"
+                 alt="EZTicket Logo"
+                 width={240}
+                 height={80}
+                 className="h-16 w-auto hover:opacity-80 transition-opacity"
+                 priority
+               />
+             </Link>
            </div>
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center space-x-8 xl:space-x-10">
@@ -39,7 +41,7 @@ export default function Navbar() {
              href="/login"
              className="hidden sm:block border border-white/30 text-white px-6 sm:px-8 py-3 rounded-full text-lg xl:text-xl font-semibold text-center"
            >
-             Login
+             Login / Register
            </Link>
         </div>
       </nav>
@@ -51,14 +53,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-3">
-          <Image
-            src="/assets/images/Logo.png"
-            alt="EZTicket Logo"
-            width={240}
-            height={80}
-            className="h-16 w-auto"
-            priority
-          />
+          <Link href="/" className="cursor-pointer">
+            <Image
+              src="/assets/images/Logo.png"
+              alt="EZTicket Logo"
+              width={240}
+              height={80}
+              className="h-16 w-auto hover:opacity-80 transition-opacity"
+              priority
+            />
+          </Link>
         </div>
 
         {/* Desktop Navigation Links */}
