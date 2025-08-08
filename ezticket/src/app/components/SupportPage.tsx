@@ -86,7 +86,6 @@ const faqCategories: FAQCategory[] = [
 
 export default function SupportPage() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filteredCategories = faqCategories.filter(category =>
     category.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -151,7 +150,7 @@ export default function SupportPage() {
                 Knowledge Base
               </h2>
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 border-b-2 border-red-500 pb-2 inline-block">
-                FAQ's Sri Lanka
+                FAQ&apos;s Sri Lanka
               </h3>
             </div>
 
@@ -200,7 +199,7 @@ export default function SupportPage() {
                 Still need help?
               </h3>
               <p className="text-white/90 mb-6 text-xl">
-                Can't find what you're looking for? Our support team is here to help.
+                Can&apos;t find what you&apos;re looking for? Our support team is here to help.
               </p>
                              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                  <Link href="/contact" className="px-8 py-4 bg-orange-500 hover:bg-orange-600 rounded-xl text-white font-semibold transition-all duration-300 text-center text-lg">
