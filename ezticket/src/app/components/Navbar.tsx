@@ -32,17 +32,16 @@ export default function Navbar() {
           {/* Desktop Navigation Links */}
           <div className="hidden lg:flex items-center space-x-8 xl:space-x-10">
             <span className="text-white text-lg xl:text-xl font-semibold">Events</span>
-            <span className="text-white text-lg xl:text-xl font-semibold">Venues</span>
+            <span className="text-white text-lg xl:text-xl font-semibold">Promotions</span>
             <span className="text-white text-lg xl:text-xl font-semibold">About Us</span>
+            <span className="text-white text-lg xl:text-xl font-semibold">Support</span>
             <span className="text-white text-lg xl:text-xl font-semibold">Contact</span>
           </div>
-                     {/* Desktop Login Button */}
-           <Link 
-             href="/login"
-             className="hidden sm:block border border-white/30 text-white px-6 sm:px-8 py-3 rounded-full text-lg xl:text-xl font-semibold text-center"
-           >
-             Login / Register
-           </Link>
+                     {/* Desktop Auth Buttons */}
+           <div className="hidden sm:flex items-center space-x-4">
+             <span className="text-white text-lg xl:text-xl font-semibold">Register</span>
+             <span className="border border-white/30 text-white px-6 sm:px-8 py-3 rounded-full text-lg xl:text-xl font-semibold text-center">Sign In</span>
+           </div>
         </div>
       </nav>
     );
@@ -70,11 +69,14 @@ export default function Navbar() {
           <Link href="/events" className="text-white hover:text-white/80 transition-colors text-lg xl:text-xl font-semibold">
             Events
           </Link>
-          <Link href="/venues" className="text-white hover:text-white/80 transition-colors text-lg xl:text-xl font-semibold">
-            Venues
+          <Link href="/promotions" className="text-white hover:text-white/80 transition-colors text-lg xl:text-xl font-semibold">
+            Promotions
           </Link>
           <Link href="/about" className="text-white hover:text-white/80 transition-colors text-lg xl:text-xl font-semibold">
             About Us
+          </Link>
+          <Link href="/support" className="text-white hover:text-white/80 transition-colors text-lg xl:text-xl font-semibold">
+            Support
           </Link>
           <Link href="/contact" className="text-white hover:text-white/80 transition-colors text-lg xl:text-xl font-semibold">
             Contact
@@ -97,13 +99,21 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Desktop Login Button */}
-        <Link 
-          href="/login"
-          className="hidden sm:block border border-white/30 text-white px-6 sm:px-8 py-3 rounded-full hover:bg-white/10 transition-colors text-lg xl:text-xl font-semibold text-center"
-        >
-          Login
-        </Link>
+        {/* Desktop Auth Buttons */}
+        <div className="hidden sm:flex items-center space-x-4">
+          <Link 
+            href="/register"
+            className="text-white hover:text-white/80 transition-colors text-lg xl:text-xl font-semibold"
+          >
+            Register
+          </Link>
+          <Link 
+            href="/login"
+            className="border border-white/30 text-white px-6 sm:px-8 py-3 rounded-full hover:bg-white/10 transition-colors text-lg xl:text-xl font-semibold text-center"
+          >
+            Sign In
+          </Link>
+        </div>
       </div>
 
       {/* Mobile Navigation Menu */}
@@ -118,11 +128,11 @@ export default function Navbar() {
               Events
             </Link>
             <Link 
-              href="/venues" 
+              href="/promotions" 
               className="block text-white hover:text-white/80 transition-colors py-3 text-xl font-semibold"
               onClick={() => setIsMenuOpen(false)}
             >
-              Venues
+              Promotions
             </Link>
             <Link 
               href="/about" 
@@ -132,19 +142,35 @@ export default function Navbar() {
               About Us
             </Link>
             <Link 
+              href="/support" 
+              className="block text-white hover:text-white/80 transition-colors py-3 text-xl font-semibold"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Support
+            </Link>
+            <Link 
               href="/contact" 
               className="block text-white hover:text-white/80 transition-colors py-3 text-xl font-semibold"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
             </Link>
-            <Link 
-              href="/login"
-              className="block w-full border border-white/30 text-white px-8 py-4 rounded-full hover:bg-white/10 transition-colors mt-6 text-xl font-semibold text-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Login
-            </Link>
+            <div className="space-y-4 mt-6">
+              <Link 
+                href="/register"
+                className="block w-full text-white hover:text-white/80 transition-colors py-3 text-xl font-semibold text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Register
+              </Link>
+              <Link 
+                href="/login"
+                className="block w-full border border-white/30 text-white px-8 py-4 rounded-full hover:bg-white/10 transition-colors text-xl font-semibold text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sign In
+              </Link>
+            </div>
           </div>
         </div>
       )}
