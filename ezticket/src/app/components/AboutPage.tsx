@@ -15,7 +15,7 @@ const teamMembers: TeamMember[] = [
     name: "Dulaj Upananda",
     position: "Founder & CEO",
     image: "/assets/images/team/ceo.jpg",
-    description: "Leading EZTicket's vision to revolutionize event management in Sri Lanka."
+    description: "Leading EZTicket&apos;s vision to revolutionize event management in Sri Lanka."
   },
   {
     name: "Sarah Perera",
@@ -33,7 +33,7 @@ const teamMembers: TeamMember[] = [
     name: "Nimali Fernando",
     position: "Marketing Manager",
     image: "/assets/images/team/marketing.jpg",
-    description: "Building EZTicket's brand presence across Sri Lanka."
+    description: "Building EZTicket&apos;s brand presence across Sri Lanka."
   },
   {
     name: "Kumar Dias",
@@ -50,7 +50,6 @@ const teamMembers: TeamMember[] = [
 ];
 
 export default function AboutPage() {
-  const [activeTab, setActiveTab] = useState('about');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600">
@@ -200,7 +199,7 @@ export default function AboutPage() {
               Our Team
             </h2>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Meet the passionate team behind EZTicket's success
+              Meet the passionate team behind EZTicket&apos;s success
             </p>
           </div>
 
