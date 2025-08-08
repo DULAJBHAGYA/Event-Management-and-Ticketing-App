@@ -36,6 +36,7 @@ export default function Navbar() {
             <span className="text-white text-lg xl:text-xl font-semibold">About Us</span>
             <span className="text-white text-lg xl:text-xl font-semibold">Support</span>
             <span className="text-white text-lg xl:text-xl font-semibold">Contact</span>
+            <span className="text-orange-400 text-lg xl:text-xl font-semibold">Add Event</span>
           </div>
                      {/* Desktop Auth Buttons */}
            <div className="hidden sm:flex items-center space-x-4">
@@ -80,6 +81,9 @@ export default function Navbar() {
           </Link>
           <Link href="/contact" className="text-white hover:text-white/80 transition-colors text-lg xl:text-xl font-semibold">
             Contact
+          </Link>
+          <Link href="/dashboard" className="text-orange-400 hover:text-orange-300 transition-colors text-lg xl:text-xl font-semibold">
+            Add Event
           </Link>
         </div>
 
@@ -154,6 +158,13 @@ export default function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
+            </Link>
+            <Link 
+              href="/dashboard" 
+              className="block text-orange-400 hover:text-orange-300 transition-colors py-3 text-xl font-semibold"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Add Event
             </Link>
             <div className="space-y-4 mt-6">
               <Link 

@@ -205,7 +205,13 @@ export default function SupportPage() {
                  <Link href="/contact" className="px-8 py-4 bg-orange-500 hover:bg-orange-600 rounded-xl text-white font-semibold transition-all duration-300 text-center text-lg">
                    Contact Support
                  </Link>
-                 <button className="px-8 py-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white font-semibold hover:bg-white/30 transition-all duration-300 text-lg">
+                 <button 
+                   onClick={() => {
+                     // Open live chat widget or navigate to chat page
+                     window.open('https://wa.me/94712345678?text=Hi%20EZTicket%20Support,%20I%20need%20help', '_blank');
+                   }}
+                   className="px-8 py-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-xl text-white font-semibold hover:bg-white/30 transition-all duration-300 text-lg cursor-pointer"
+                 >
                    Live Chat
                  </button>
                </div>
