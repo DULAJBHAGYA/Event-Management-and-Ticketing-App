@@ -30,16 +30,16 @@ export default function LandingPage() {
         <div className="relative z-10 flex flex-col justify-center min-h-screen px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto w-full text-center">
             <div className="mb-8 sm:mb-12 lg:mb-16">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 sm:mb-8 leading-tight">
-                DISCOVER YOUR
-                <br />
-                DREAM EVENT IN
-                <br />
-                <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
-                  SRI LANKA
-                </span>
-              </h1>
-                             <p className="text-lg sm:text-xl lg:text-2xl text-white max-w-3xl mx-auto mb-8 sm:mb-12 px-4 drop-shadow-lg" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
+                          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight">
+              DISCOVER YOUR
+              <br />
+              DREAM EVENT IN
+              <br />
+              <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
+                SRI LANKA
+              </span>
+            </h1>
+                             <p className="text-base sm:text-lg lg:text-xl text-white max-w-3xl mx-auto mb-8 sm:mb-12 px-4 drop-shadow-lg" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
                  Discover the next generation event management app that
                  redefines how you experience events across beautiful Sri Lanka.
                </p>
@@ -105,7 +105,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto w-full text-center">
           {/* Hero Section */}
           <div className="mb-8 sm:mb-12 lg:mb-16">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 sm:mb-8 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight">
               DISCOVER YOUR
               <br />
               DREAM EVENT IN
@@ -115,7 +115,7 @@ export default function LandingPage() {
               </span>
             </h1>
             
-            <p className="text-lg sm:text-xl lg:text-2xl text-white max-w-3xl mx-auto mb-8 sm:mb-12 px-4 drop-shadow-lg" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
+            <p className="text-base sm:text-lg lg:text-xl text-white max-w-3xl mx-auto mb-8 sm:mb-12 px-4 drop-shadow-lg" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.8)'}}>
               Discover the next generation event management app that
               redefines how you experience events across beautiful Sri Lanka.
             </p>
@@ -135,7 +135,7 @@ export default function LandingPage() {
                   placeholder="Colombo, Galle Face"
                   value={destination}
                   onChange={(e) => setDestination(e.target.value)}
-                  className="w-full text-base sm:text-lg font-semibold text-gray-800 bg-transparent border-none outline-none placeholder-gray-400"
+                  className="w-full text-sm sm:text-base font-semibold text-gray-800 bg-transparent border-none outline-none placeholder-gray-400"
                 />
               </div>
 
@@ -150,7 +150,7 @@ export default function LandingPage() {
                   placeholder="LKR 2,500 - 25,000"
                   value={priceRange}
                   onChange={(e) => setPriceRange(e.target.value)}
-                  className="w-full text-base sm:text-lg font-semibold text-gray-800 bg-transparent border-none outline-none placeholder-gray-400"
+                  className="w-full text-sm sm:text-base font-semibold text-gray-800 bg-transparent border-none outline-none placeholder-gray-400"
                 />
               </div>
 
@@ -165,12 +165,12 @@ export default function LandingPage() {
                   placeholder="25 Dec 2024 ▼"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full text-base sm:text-lg font-semibold text-gray-800 bg-transparent border-none outline-none placeholder-gray-400"
+                  className="w-full text-sm sm:text-base font-semibold text-gray-800 bg-transparent border-none outline-none placeholder-gray-400"
                 />
               </div>
 
               {/* Search Button */}
-              <button className="bg-gradient-to-r from-orange-400 to-orange-500 text-white px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:from-orange-500 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl col-span-1 sm:col-span-2 lg:col-span-1">
+              <button className="bg-gradient-to-r from-orange-400 to-orange-500 text-white px-4 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:from-orange-500 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl col-span-1 sm:col-span-2 lg:col-span-1">
                 Search Events
               </button>
             </div>
@@ -178,10 +178,10 @@ export default function LandingPage() {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
-            <button className="w-full sm:w-auto bg-white text-teal-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-gray-50 transition-colors shadow-lg hover:shadow-xl">
+            <button className="w-full sm:w-auto bg-white text-teal-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base hover:bg-gray-50 transition-colors shadow-lg hover:shadow-xl">
               Get Started
             </button>
-            <button className="w-full sm:w-auto bg-gradient-to-r from-orange-400 to-orange-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:from-orange-500 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl">
+            <button className="w-full sm:w-auto bg-gradient-to-r from-orange-400 to-orange-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base hover:from-orange-500 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl">
               Book Tickets
             </button>
           </div>
