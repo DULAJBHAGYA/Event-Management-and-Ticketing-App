@@ -1,0 +1,6 @@
+@EZTicket.API_HostAddress = http://localhost:5007
+
+GET {{EZTicket.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

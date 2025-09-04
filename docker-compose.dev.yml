@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # SQL Server Database
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ezticket-sqlserver-dev
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data_dev:/var/opt/mssql
+    networks:
+      - ezticket-dev-network
+
+  # .NET Core API Backend (Development)
+  api:
+    build:
+      context: ./EZTicket.API
+      dockerfile: Dockerfile
+    container_name: ezticket-api-dev
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=EZTicketDB_Dev;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=true;MultipleActiveResultSets=true
+      - JWT__Key=YourSuperSecretKeyThatIsAtLeast32CharactersLong!
+      - JWT__Issuer=EZTicket
+      - JWT__Audience=EZTicket
+      - JWT__ExpiryInMinutes=60
+    ports:
+      - "5000:80"
+    depends_on:
+      - sqlserver
+    networks:
+      - ezticket-dev-network
+    volumes:
+      - ./EZTicket.API:/src
+      - /src/bin
+      - /src/obj
+
+  # Next.js Frontend (Development)
+  frontend:
+    build:
+      context: ./ezticket
+      dockerfile: Dockerfile
+    container_name: ezticket-frontend-dev
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    networks:
+      - ezticket-dev-network
+    volumes:
+      - ./ezticket:/app
+      - /app/node_modules
+      - /app/.next
+
+volumes:
+  sqlserver_data_dev:
+
+networks:
+  ezticket-dev-network:
+    driver: bridge

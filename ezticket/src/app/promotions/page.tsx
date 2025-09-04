@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PromotionsPage from '../components/PromotionsPage';
+import PublicPromotionsPage from '../components/PublicPromotionsPage';
 
 export const metadata: Metadata = {
   title: 'EZTicket | Promotions',
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Promotions() {
-  return <PromotionsPage />;
+  return <PublicPromotionsPage />;
 } 
