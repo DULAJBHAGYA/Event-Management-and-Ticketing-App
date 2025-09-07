@@ -350,7 +350,7 @@ namespace EZTicket.API.Services
             }
         }
 
-        public async Task<User?> GetUserByEmailAsync(string email)
+        public async Task<Models.User?> GetUserByEmailAsync(string email)
         {
             try
             {

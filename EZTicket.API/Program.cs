@@ -53,7 +53,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 
 // Configure JWT
 var jwtSettings = builder.Configuration.GetSection("JWT").Get<JwtSettings>();
-builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JWT"));
+builder.Services.AddSingleton(jwtSettings);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -97,12 +97,28 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "https://localhost:3000")
+        policy.WithOrigins(
+                "http://localhost:3000", 
+                "https://localhost:3000",
+                "http://127.0.0.1:3000",
+                "https://127.0.0.1:3000"
+              )
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials();
+              .AllowCredentials()
+              .SetIsOriginAllowedToAllowWildcardSubdomains();
+    });
+    
+    // Development policy - more permissive
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
+
+// JWT settings already configured above
 
 // Register services
 builder.Services.AddScoped<IJwtService, JwtService>();
@@ -156,8 +172,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Health checks
-builder.Services.AddHealthChecks()
-    .AddDbContextCheck<EZTicketDbContext>();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -174,7 +189,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowFrontend");
+// Use more permissive CORS for development
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("AllowAll");
+}
+else
+{
+    app.UseCors("AllowFrontend");
+}
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -225,4 +248,6 @@ using (var scope = app.Services.CreateScope())
 
 Log.Information("EZTicket API starting up...");
 
+// Configure the application to listen on port 5001 instead of 5000
+app.Urls.Add("http://localhost:5001");
 app.Run();

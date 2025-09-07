@@ -1,5 +1,26 @@
 import { useState, useEffect } from 'react';
-import { User, LoginCredentials } from '@/types';
+import { apiService, LoginRequest, RegisterRequest, AuthResponse } from '@/services/api';
+
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  emailVerified: boolean;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface RegisterCredentials {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
@@ -14,14 +35,16 @@ export function useAuth() {
   const checkAuthStatus = async () => {
     try {
       setIsLoading(true);
-      // TODO: Implement actual auth check logic
-      // const response = await fetch('/api/auth/me');
-      // if (response.ok) {
-      //   const userData = await response.json();
-      //   setUser(userData);
-      // }
+      const response = await apiService.getCurrentUser();
+      
+      if (response.success && response.data) {
+        setUser(response.data);
+      } else {
+        setUser(null);
+      }
     } catch {
       setError('Failed to check authentication status');
+      setUser(null);
     } finally {
       setIsLoading(false);
     }
@@ -32,25 +55,39 @@ export function useAuth() {
       setIsLoading(true);
       setError(null);
       
-      // TODO: Implement actual login logic
-      console.log('Login attempt:', credentials);
+      const response = await apiService.login(credentials);
       
-      // Simulated successful login
-      // const response = await fetch('/api/auth/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(credentials),
-      // });
+      if (response.success && response.data) {
+        setUser(response.data.user);
+        return { success: true, data: response.data };
+      } else {
+        setError(response.error || 'Login failed');
+        return { success: false, error: response.error || 'Login failed' };
+      }
+    } catch (error) {
+      const errorMessage = 'Login failed. Please try again.';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const register = async (userData: RegisterCredentials) => {
+    try {
+      setIsLoading(true);
+      setError(null);
       
-      // if (response.ok) {
-      //   const userData = await response.json();
-      //   setUser(userData);
-      //   return { success: true };
-      // }
+      const response = await apiService.register(userData);
       
-      return { success: false, error: 'Invalid credentials' };
-    } catch {
-      const errorMessage = 'Login failed';
+      if (response.success) {
+        return { success: true, message: response.data?.message || 'Registration successful' };
+      } else {
+        setError(response.error || 'Registration failed');
+        return { success: false, error: response.error || 'Registration failed' };
+      }
+    } catch (error) {
+      const errorMessage = 'Registration failed. Please try again.';
       setError(errorMessage);
       return { success: false, error: errorMessage };
     } finally {
@@ -61,11 +98,57 @@ export function useAuth() {
   const logout = async () => {
     try {
       setIsLoading(true);
-      // TODO: Implement actual logout logic
-      // await fetch('/api/auth/logout', { method: 'POST' });
+      await apiService.logout();
       setUser(null);
-    } catch {
+      setError(null);
+    } catch (error) {
       setError('Logout failed');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const verifyEmail = async (email: string, otpCode: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const response = await apiService.verifyEmail({ email, otpCode });
+      
+      if (response.success) {
+        // Refresh user data to get updated verification status
+        await checkAuthStatus();
+        return { success: true, message: response.data?.message || 'Email verified successfully' };
+      } else {
+        setError(response.error || 'Email verification failed');
+        return { success: false, error: response.error || 'Email verification failed' };
+      }
+    } catch (error) {
+      const errorMessage = 'Email verification failed. Please try again.';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resendOtp = async (email: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const response = await apiService.resendOtp({ email });
+      
+      if (response.success) {
+        return { success: true, message: response.data?.message || 'Verification code sent' };
+      } else {
+        setError(response.error || 'Failed to resend code');
+        return { success: false, error: response.error || 'Failed to resend code' };
+      }
+    } catch (error) {
+      const errorMessage = 'Failed to resend verification code. Please try again.';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
     } finally {
       setIsLoading(false);
     }
@@ -76,7 +159,10 @@ export function useAuth() {
     isLoading,
     error,
     login,
+    register,
     logout,
+    verifyEmail,
+    resendOtp,
     isAuthenticated: !!user,
   };
 } 
