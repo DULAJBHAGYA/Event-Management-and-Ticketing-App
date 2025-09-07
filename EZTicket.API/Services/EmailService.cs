@@ -67,10 +67,36 @@ namespace EZTicket.API.Services
         {
             try
             {
-                var smtpHost = _configuration["EmailSettings:SMTPHost"] ?? "smtp.gmail.com";
-                var smtpPort = int.Parse(_configuration["EmailSettings:SMTPPort"] ?? "587");
+                // For development: Check if SMTP is properly configured
                 var smtpUsername = _configuration["EmailSettings:SMTPUsername"] ?? "";
                 var smtpPassword = _configuration["EmailSettings:SMTPPassword"] ?? "";
+                
+                if (string.IsNullOrEmpty(smtpUsername) || string.IsNullOrEmpty(smtpPassword) || 
+                    smtpUsername == "your-email@gmail.com" || smtpPassword == "your-app-password")
+                {
+                    // Development mode: Log email to console instead of sending
+                    _logger.LogInformation("=== DEVELOPMENT MODE: EMAIL NOT SENT ===");
+                    _logger.LogInformation("To: {Email}", to);
+                    _logger.LogInformation("Subject: {Subject}", subject);
+                    _logger.LogInformation("Body: {Body}", body);
+                    _logger.LogInformation("=== END EMAIL ===");
+                    
+                    // Extract OTP from verification emails for easy testing
+                    if (subject.Contains("Verify Your Email"))
+                    {
+                        var otpMatch = System.Text.RegularExpressions.Regex.Match(body, @"<strong>(\d{6})</strong>");
+                        if (otpMatch.Success)
+                        {
+                            _logger.LogWarning("🔑 VERIFICATION CODE FOR {Email}: {OTP}", to, otpMatch.Groups[1].Value);
+                        }
+                    }
+                    
+                    return true; // Return true so the flow continues
+                }
+
+                // Production mode: Send actual email
+                var smtpHost = _configuration["EmailSettings:SMTPHost"] ?? "smtp.gmail.com";
+                var smtpPort = int.Parse(_configuration["EmailSettings:SMTPPort"] ?? "587");
                 var fromEmail = _configuration["EmailSettings:FromEmail"] ?? "noreply@ezticket.com";
                 var fromName = _configuration["EmailSettings:FromName"] ?? "EZTicket";
 

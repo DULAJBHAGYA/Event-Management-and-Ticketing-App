@@ -3,6 +3,7 @@ using EZTicket.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
+using System.Security.Claims;
 
 namespace EZTicket.API.Controllers
 {
@@ -18,6 +19,36 @@ namespace EZTicket.API.Controllers
         {
             _authService = authService;
             _logger = logger;
+        }
+
+        /// <summary>
+        /// Get current user information
+        /// </summary>
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<IActionResult> GetMe()
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized(new { message = "User not authenticated" });
+                }
+
+                var user = await _authService.GetUserProfileAsync(userId);
+                if (user == null)
+                {
+                    return NotFound(new { message = "User not found" });
+                }
+
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting current user");
+                return StatusCode(500, new { message = "Internal server error" });
+            }
         }
 
         /// <summary>

@@ -20,6 +20,7 @@ export interface RegisterCredentials {
   email: string;
   password: string;
   confirmPassword: string;
+  acceptTerms: boolean;
 }
 
 export function useAuth() {

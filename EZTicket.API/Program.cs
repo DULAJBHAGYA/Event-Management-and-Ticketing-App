@@ -23,11 +23,13 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 // Add services to the container
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddApplicationPart(typeof(Program).Assembly);
 
 // Configure Entity Framework
 builder.Services.AddDbContext<EZTicketDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 
+    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 
 // Configure Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -52,7 +54,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 // Configure JWT
-var jwtSettings = builder.Configuration.GetSection("JWT").Get<JwtSettings>();
+var jwtSettings = builder.Configuration.GetSection("JWT").Get<JwtSettings>() ?? new JwtSettings();
 builder.Services.AddSingleton(jwtSettings);
 
 builder.Services.AddAuthentication(options =>

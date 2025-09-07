@@ -33,7 +33,7 @@ namespace EZTicket.API.Services
                 {
                     new(ClaimTypes.NameIdentifier, user.Id),
                     new(ClaimTypes.Email, user.Email),
-                    new(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+                    new(ClaimTypes.Name, $"{user.FirstName} {user.LastName}".Trim()),
                     new("firstName", user.FirstName),
                     new("lastName", user.LastName),
                     new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

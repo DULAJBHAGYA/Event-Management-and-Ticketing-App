@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EZTicket.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b870d956bd97252a2966f597cf8cea2f1837b97")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4674eda2bfc743f019bad67cbcdaad8387965a3a")]
 [assembly: System.Reflection.AssemblyProductAttribute("EZTicket.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EZTicket.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
