@@ -15,6 +15,6 @@ namespace EZTicket.API.Services
         Task<UserDto> GetUserProfileAsync(string userId);
         Task<bool> UpdateUserProfileAsync(string userId, UserDto userDto);
         Task<bool> DeactivateAccountAsync(string userId);
-        Task<User?> GetUserByEmailAsync(string email);
+        Task<Models.User?> GetUserByEmailAsync(string email);
     }
 }

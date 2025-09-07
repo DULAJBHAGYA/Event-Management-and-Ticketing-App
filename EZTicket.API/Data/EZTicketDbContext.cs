@@ -92,13 +92,13 @@ namespace EZTicket.API.Data
 
             builder.Entity<EventPromotion>()
                 .HasOne(ep => ep.Event)
-                .WithMany(e => e.Promotions)
+                .WithMany()
                 .HasForeignKey(ep => ep.EventId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<EventPromotion>()
                 .HasOne(ep => ep.Promotion)
-                .WithMany(p => p.EventPromotions)
+                .WithMany()
                 .HasForeignKey(ep => ep.PromotionId)
                 .OnDelete(DeleteBehavior.Cascade);
 

@@ -2,11 +2,13 @@ using EZTicket.API.DTOs;
 using EZTicket.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace EZTicket.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [EnableCors("AllowAll")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;

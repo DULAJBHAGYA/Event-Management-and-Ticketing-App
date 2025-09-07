@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -10,6 +12,11 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { login } = useAuth();
+  const router = useRouter();
 
   const testimonials = [
     {
@@ -47,10 +54,25 @@ export default function LoginPage() {
     setMounted(true);
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', { email, password, rememberMe });
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const result = await login({ email, password });
+      
+      if (result.success) {
+        // Redirect to dashboard or home page
+        router.push('/dashboard');
+      } else {
+        setError(result.error || 'Login failed');
+      }
+    } catch (error) {
+      setError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (!mounted) {
@@ -191,6 +213,13 @@ export default function LoginPage() {
             <p className="text-lg xl:text-xl text-gray-600" style={{fontFamily: 'var(--font-geist-sans)'}}>Log in to your account.</p>
           </div>
 
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-600 text-sm" style={{fontFamily: 'var(--font-geist-sans)'}}>{error}</p>
+            </div>
+          )}
+
           {/* Login Form */}
           <form onSubmit={handleLogin} className="space-y-5">
             {/* Email Field */}
@@ -272,10 +301,11 @@ export default function LoginPage() {
             {/* Sign In Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white py-3 px-4 rounded-full font-bold text-base xl:text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              disabled={isLoading}
+              className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 disabled:from-gray-300 disabled:to-gray-400 text-white py-3 px-4 rounded-full font-bold text-base xl:text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:shadow-none"
               style={{fontFamily: 'var(--font-geist-sans)'}}
             >
-              Sign in
+              {isLoading ? 'Signing in...' : 'Sign in'}
             </button>
 
             {/* Google Sign In */}

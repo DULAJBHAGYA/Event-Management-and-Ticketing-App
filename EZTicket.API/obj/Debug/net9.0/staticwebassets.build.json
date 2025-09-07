@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "4vc8AUj2fqZJHupFbA8NfcjX2synZopde0QuKgB7OrQ=",
+  "Source": "EZTicket.API",
+  "BasePath": "_content/EZTicket.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

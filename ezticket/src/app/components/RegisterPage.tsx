@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/hooks/useAuth';
+import EmailVerificationModal from './EmailVerificationModal';
 
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState('');
@@ -13,6 +15,12 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
+  const { register } = useAuth();
 
   const testimonials = [
     {
@@ -50,10 +58,51 @@ export default function RegisterPage() {
     setMounted(true);
   }, []);
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle registration logic here
-    console.log('Register attempt:', { firstName, lastName, email, password, confirmPassword, agreeTerms });
+    setError('');
+
+    // Validate passwords match
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    // Validate terms agreement
+    if (!agreeTerms) {
+      setError('Please agree to the terms and conditions');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const result = await register({
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword
+      });
+
+      if (result.success) {
+        setRegistrationSuccess(true);
+        setShowVerificationModal(true);
+      } else {
+        setError(result.error || 'Registration failed');
+      }
+    } catch (error) {
+      setError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerificationSuccess = () => {
+    setShowVerificationModal(false);
+    setRegistrationSuccess(false);
+    // Redirect to login page or dashboard
+    window.location.href = '/login';
   };
 
   if (!mounted) {
@@ -195,6 +244,22 @@ export default function RegisterPage() {
             <p className="text-lg xl:text-xl text-gray-600" style={{fontFamily: 'var(--font-geist-sans)'}}>Create your account to get started.</p>
           </div>
 
+          {/* Success Message */}
+          {registrationSuccess && (
+            <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-green-600 text-sm" style={{fontFamily: 'var(--font-geist-sans)'}}>
+                Registration successful! Please check your email for verification instructions.
+              </p>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-600 text-sm" style={{fontFamily: 'var(--font-geist-sans)'}}>{error}</p>
+            </div>
+          )}
+
           {/* Register Form */}
           <form onSubmit={handleRegister} className="space-y-5">
             {/* Name Fields */}
@@ -325,11 +390,11 @@ export default function RegisterPage() {
             {/* Sign Up Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white py-3 px-4 rounded-full font-bold text-base xl:text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              disabled={!agreeTerms || isLoading}
+              className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 disabled:from-gray-300 disabled:to-gray-400 text-white py-3 px-4 rounded-full font-bold text-base xl:text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:shadow-none"
               style={{fontFamily: 'var(--font-geist-sans)'}}
-              disabled={!agreeTerms}
             >
-              Sign up
+              {isLoading ? 'Creating Account...' : 'Sign up'}
             </button>
 
             {/* Google Sign Up */}
@@ -371,6 +436,14 @@ export default function RegisterPage() {
           </div>
         </div>
       </div>
+
+      {/* Email Verification Modal */}
+      <EmailVerificationModal
+        isOpen={showVerificationModal}
+        onClose={() => setShowVerificationModal(false)}
+        email={email}
+        onSuccess={handleVerificationSuccess}
+      />
     </div>
   );
 } 
