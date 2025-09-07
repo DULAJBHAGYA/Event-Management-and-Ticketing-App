@@ -75,8 +75,14 @@ namespace EZTicket.API.Services
 
                 _logger.LogInformation("User {Email} registered successfully. Verification email sent.", user.Email);
 
-                // Don't generate tokens yet - user needs to verify email first
-                throw new InvalidOperationException("Registration successful! Please check your email and verify your account before signing in.");
+                // Return success response - user needs to verify email first
+                return new AuthResponseDto
+                {
+                    User = _mapper.Map<UserDto>(user),
+                    Token = string.Empty, // No token until email is verified
+                    RefreshToken = string.Empty,
+                    ExpiresAt = DateTime.MinValue
+                };
             }
             catch (Exception ex)
             {

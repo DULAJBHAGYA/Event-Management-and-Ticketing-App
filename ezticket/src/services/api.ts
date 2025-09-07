@@ -21,6 +21,7 @@ export interface RegisterRequest {
   email: string;
   password: string;
   confirmPassword: string;
+  acceptTerms: boolean;
 }
 
 export interface AuthResponse {
@@ -79,6 +80,44 @@ class ApiService {
       
       let data;
       try {
+        // Check if response has content before trying to parse JSON
+        const contentType = response.headers.get('content-type');
+        const contentLength = response.headers.get('content-length');
+        
+        if (contentLength === '0' || !contentType?.includes('application/json')) {
+          // Handle empty responses or non-JSON responses
+          if (response.status === 401) {
+            return {
+              success: false,
+              error: 'Unauthorized - Please log in',
+            };
+          } else if (response.status === 404) {
+            return {
+              success: false,
+              error: 'Not found',
+            };
+          } else if (response.status === 400) {
+            // Try to get text response for 400 errors
+            try {
+              const textResponse = await response.text();
+              return {
+                success: false,
+                error: textResponse || 'Bad request',
+              };
+            } catch {
+              return {
+                success: false,
+                error: 'Bad request',
+              };
+            }
+          } else {
+            return {
+              success: false,
+              error: `Server returned ${response.status}`,
+            };
+          }
+        }
+        
         data = await response.json();
       } catch (jsonError) {
         console.error('Failed to parse JSON response:', jsonError);
