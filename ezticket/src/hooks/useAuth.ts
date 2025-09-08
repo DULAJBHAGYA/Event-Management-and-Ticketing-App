@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { apiService, LoginRequest, RegisterRequest, AuthResponse } from '@/services/api';
+import { apiService } from '@/services/api';
 
 export interface User {
   id: string;
@@ -65,7 +65,7 @@ export function useAuth() {
         setError(response.error || 'Login failed');
         return { success: false, error: response.error || 'Login failed' };
       }
-    } catch (error) {
+    } catch (err) {
       const errorMessage = 'Login failed. Please try again.';
       setError(errorMessage);
       return { success: false, error: errorMessage };
@@ -87,7 +87,7 @@ export function useAuth() {
         setError(response.error || 'Registration failed');
         return { success: false, error: response.error || 'Registration failed' };
       }
-    } catch (error) {
+    } catch (err) {
       const errorMessage = 'Registration failed. Please try again.';
       setError(errorMessage);
       return { success: false, error: errorMessage };
@@ -102,7 +102,7 @@ export function useAuth() {
       await apiService.logout();
       setUser(null);
       setError(null);
-    } catch (error) {
+    } catch (err) {
       setError('Logout failed');
     } finally {
       setIsLoading(false);
@@ -124,7 +124,7 @@ export function useAuth() {
         setError(response.error || 'Email verification failed');
         return { success: false, error: response.error || 'Email verification failed' };
       }
-    } catch (error) {
+    } catch (err) {
       const errorMessage = 'Email verification failed. Please try again.';
       setError(errorMessage);
       return { success: false, error: errorMessage };
@@ -146,7 +146,7 @@ export function useAuth() {
         setError(response.error || 'Failed to resend code');
         return { success: false, error: response.error || 'Failed to resend code' };
       }
-    } catch (error) {
+    } catch (err) {
       const errorMessage = 'Failed to resend verification code. Please try again.';
       setError(errorMessage);
       return { success: false, error: errorMessage };

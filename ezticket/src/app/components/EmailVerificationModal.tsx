@@ -72,7 +72,7 @@ export default function EmailVerificationModal({
       } else {
         setError(response.error || 'Verification failed. Please try again.');
       }
-    } catch (error) {
+    } catch (err) {
       setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
@@ -105,7 +105,7 @@ export default function EmailVerificationModal({
       } else {
         setError(response.error || 'Failed to resend code. Please try again.');
       }
-    } catch (error) {
+    } catch (err) {
       setError('An error occurred. Please try again.');
     } finally {
       setIsResending(false);
@@ -131,7 +131,7 @@ export default function EmailVerificationModal({
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Verify Your Email</h2>
           <p className="text-gray-600">
-            We've sent a 6-digit verification code to
+            We&apos;ve sent a 6-digit verification code to
           </p>
           <p className="text-orange-600 font-semibold">{email}</p>
         </div>
