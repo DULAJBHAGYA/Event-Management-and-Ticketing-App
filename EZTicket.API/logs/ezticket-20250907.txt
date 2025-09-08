@@ -292,10 +292,8 @@ System.Net.Mail.SmtpException: The SMTP server requires a secure connection or t
 2025-09-07 22:32:02.847 +05:30 [INF] === END EMAIL ===
 2025-09-07 22:32:02.849 +05:30 [INF] OTP generated and sent to test4@example.com
 2025-09-07 22:32:02.849 +05:30 [INF] User test4@example.com registered successfully. Verification email sent.
- Email Address</h2>
-        </div>
-        <div class='content'>
-            <p>Hello <strong>Test</strong>,</p>
+2025-09-07 22:36:21.400 +05:30 [INF] Application is shutting down...
+        <p>Hello <strong>Test</strong>,</p>
             <p>Welcome to EZTicket! To complete your registration, please verify your email address using the OTP code below:</p>
             
             <div class='otp-code'>945593</div>
@@ -318,3 +316,13 @@ System.Net.Mail.SmtpException: The SMTP server requires a secure connection or t
 [2025-09-07 22:32:02.847 +05:30 INF] === END EMAIL === {"SourceContext":"EZTicket.API.Services.EmailService","ActionId":"28c0d4ec-fb36-4d97-8b2f-4329fc2e766e","ActionName":"EZTicket.API.Controllers.AuthController.Register (EZTicket.API)","RequestId":"0HNFE6122AONJ:00000001","RequestPath":"/api/auth/register","ConnectionId":"0HNFE6122AONJ"}
 [2025-09-07 22:32:02.849 +05:30 INF] OTP generated and sent to test4@example.com {"SourceContext":"EZTicket.API.Services.EmailVerificationService","ActionId":"28c0d4ec-fb36-4d97-8b2f-4329fc2e766e","ActionName":"EZTicket.API.Controllers.AuthController.Register (EZTicket.API)","RequestId":"0HNFE6122AONJ:00000001","RequestPath":"/api/auth/register","ConnectionId":"0HNFE6122AONJ"}
 [2025-09-07 22:32:02.849 +05:30 INF] User test4@example.com registered successfully. Verification email sent. {"SourceContext":"EZTicket.API.Services.AuthService","ActionId":"28c0d4ec-fb36-4d97-8b2f-4329fc2e766e","ActionName":"EZTicket.API.Controllers.AuthController.Register (EZTicket.API)","RequestId":"0HNFE6122AONJ:00000001","RequestPath":"/api/auth/register","ConnectionId":"0HNFE6122AONJ"}
+[2025-09-07 22:36:21.400 +05:30 INF] Application is shutting down... {"SourceContext":"Microsoft.Hosting.Lifetime"}
+[2025-09-07 22:36:27.087 +05:30 WRN] The foreign key property 'EventPromotion.PromotionId1' was created in shadow state because a conflicting property with the simple name 'PromotionId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core. {"EventId":{"Id":10625,"Name":"Microsoft.EntityFrameworkCore.Model.Validation.ShadowForeignKeyPropertyCreated"},"SourceContext":"Microsoft.EntityFrameworkCore.Model.Validation"}
+[2025-09-07 22:36:27.369 +05:30 INF] Database seeded successfully {}
+[2025-09-07 22:36:27.370 +05:30 INF] EZTicket API starting up... {}
+[2025-09-07 22:36:27.400 +05:30 INF] Now listening on: http://localhost:5001 {"EventId":{"Id":14,"Name":"ListeningOnAddress"},"SourceContext":"Microsoft.Hosting.Lifetime"}
+[2025-09-07 22:36:27.401 +05:30 INF] Application started. Press Ctrl+C to shut down. {"SourceContext":"Microsoft.Hosting.Lifetime"}
+[2025-09-07 22:36:27.402 +05:30 INF] Hosting environment: Development {"SourceContext":"Microsoft.Hosting.Lifetime"}
+[2025-09-07 22:36:27.402 +05:30 INF] Content root path: /Users/dulajupananda/Documents/Projects/Event-Management-and-Ticketing-App/EZTicket.API {"SourceContext":"Microsoft.Hosting.Lifetime"}
+05:30 [INF] Hosting environment: Development
+2025-09-07 22:36:27.402 +05:30 [INF] Content root path: /Users/dulajupananda/Documents/Projects/Event-Management-and-Ticketing-App/EZTicket.API

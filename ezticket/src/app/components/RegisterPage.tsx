@@ -93,7 +93,7 @@ export default function RegisterPage() {
       } else {
         setError(result.error || 'Registration failed');
       }
-    } catch (error) {
+    } catch (err) {
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setIsLoading(false);

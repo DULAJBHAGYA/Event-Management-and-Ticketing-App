@@ -7,11 +7,6 @@ export const metadata: Metadata = {
   keywords: 'event details, ticket booking, events, Sri Lanka, EZTicket',
 };
 
-interface EventPageProps {
-  params: {
-    id: string;
-  };
-}
 
 // Required for static export with dynamic routes
 export async function generateStaticParams() {

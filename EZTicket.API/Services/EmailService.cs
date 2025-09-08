@@ -67,12 +67,12 @@ namespace EZTicket.API.Services
         {
             try
             {
-                // For development: Check if SMTP is properly configured
+                // Check if development mode is enabled
+                var useDevelopmentMode = _configuration.GetValue<bool>("EmailSettings:UseDevelopmentMode", true);
                 var smtpUsername = _configuration["EmailSettings:SMTPUsername"] ?? "";
                 var smtpPassword = _configuration["EmailSettings:SMTPPassword"] ?? "";
                 
-                if (string.IsNullOrEmpty(smtpUsername) || string.IsNullOrEmpty(smtpPassword) || 
-                    smtpUsername == "your-email@gmail.com" || smtpPassword == "your-app-password")
+                if (useDevelopmentMode || string.IsNullOrEmpty(smtpUsername) || string.IsNullOrEmpty(smtpPassword))
                 {
                     // Development mode: Log email to console instead of sending
                     _logger.LogInformation("=== DEVELOPMENT MODE: EMAIL NOT SENT ===");
@@ -99,9 +99,10 @@ namespace EZTicket.API.Services
                 var smtpPort = int.Parse(_configuration["EmailSettings:SMTPPort"] ?? "587");
                 var fromEmail = _configuration["EmailSettings:FromEmail"] ?? "noreply@ezticket.com";
                 var fromName = _configuration["EmailSettings:FromName"] ?? "EZTicket";
+                var enableSSL = _configuration.GetValue<bool>("EmailSettings:EnableSSL", true);
 
                 using var client = new SmtpClient(smtpHost, smtpPort);
-                client.EnableSsl = true;
+                client.EnableSsl = enableSSL;
                 client.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
 
                 using var message = new MailMessage();
@@ -112,12 +113,12 @@ namespace EZTicket.API.Services
                 message.IsBodyHtml = true;
 
                 await client.SendMailAsync(message);
-                _logger.LogInformation("Email sent successfully to {Email}", to);
+                _logger.LogInformation("✅ Email sent successfully to {Email}", to);
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to send email to {Email}", to);
+                _logger.LogError(ex, "❌ Failed to send email to {Email}: {Error}", to, ex.Message);
                 return false;
             }
         }
